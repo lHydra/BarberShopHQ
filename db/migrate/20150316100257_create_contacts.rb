@@ -4,6 +4,7 @@ class CreateContacts < ActiveRecord::Migration
   		t.text :email #создаем столбец name с типом text
   		t.text :text
   		t.timestamps
+
  	end
   end
 end
