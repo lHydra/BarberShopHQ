@@ -39,9 +39,8 @@ get '/contacts' do
 end
 
 post '/contacts' do
-  @email_c = params[:email_contacts]
-  @message = params[:textarea]
-  c=Contact.new :email=>@email_c, :text=>@message
+
+  c=Contact.new params[:contacts]
   c.save
   erb 'Отлично! Ваше письмо будет рассмотрено в течение 3х рабочих дней.'
 end
