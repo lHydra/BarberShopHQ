@@ -27,21 +27,9 @@ get '/visit' do
 end
 
 post '/visit' do
-hh = {:name => 'Введите имя', :date => 'Введите дату', :email => 'Введите почту'}
-@name = params[:name]
-@date = params[:date]
-@email = params[:email]
-@barber = params[:barber]
-@color = params[:colorpicker]
 
-c=Client.new :name=>@name, :phone=>@email, :datestamp=>@date, :barber=>@barber,:color=>@color
+c=Client.new params[:client]
 c.save
-
-@error = hh.select{|key,_| params[key] == ""}.values.join(", ") 
-
-if @error != ''
-  return erb :visit
-end
 
 erb 'Отлично! Ожидайте звонка'
 end
