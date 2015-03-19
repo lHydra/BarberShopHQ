@@ -16,6 +16,8 @@ class Barber < ActiveRecord::Base
 end
 
 class Contact < ActiveRecord::Base
+validates :email, :presence => true
+validates :text, :presence => true
 end
 
 before do
@@ -33,9 +35,12 @@ end
 post '/visit' do
 
 c=Client.new params[:client]
-c.save
-
-erb 'Отлично! Ожидайте звонка'
+if c.save
+	erb 'Отлично! Ожидайте звонка'
+else
+	@error = c.errors.full_messages.first
+	erb :visit
+end
 end
 
 get '/contacts' do
@@ -45,6 +50,11 @@ end
 post '/contacts' do
 
   c=Contact.new params[:contacts]
-  c.save
-  erb 'Отлично! Ваше письмо будет рассмотрено в течение 3х рабочих дней.'
+  if c.save
+ 	 erb 'Отлично! Ваше письмо будет рассмотрено в течение 3х рабочих дней.'
+  else
+  	 @error = c.errors.full_messages.first
+  	 erb :contacts
+  end
+
 end
