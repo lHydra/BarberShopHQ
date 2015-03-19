@@ -58,3 +58,8 @@ post '/contacts' do
   end
 
 end
+
+get '/barbers/:id' do
+	@barber = Barber.find(params[:id])
+	erb :barbers
+end
